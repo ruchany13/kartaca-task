@@ -47,9 +47,8 @@ services:
     ports:
       - "80:5000"
     networks:
-        - replica-set
-
-
+      - replica-set
+    
 networks:
  replica-set:
     driver: bridge

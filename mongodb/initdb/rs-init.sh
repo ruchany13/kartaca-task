@@ -1,3 +1,6 @@
+#!/bin/bash
+
+mongo <<< EOF
 var config = {
     "_id": "dbrs",
     "version": 1,
@@ -22,3 +25,4 @@ var config = {
 rs.initiate(config, { force: true });
 rs.status();
 
+EOF
