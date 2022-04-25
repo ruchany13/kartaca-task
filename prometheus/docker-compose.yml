@@ -42,8 +42,6 @@ services:
       - 8080
     networks:
       - hello 
-
-      
   grafana:
     image: grafana/grafana:latest
     container_name: monitoring_grafana
@@ -59,8 +57,6 @@ services:
       - "3000:3000"
     networks:
       - hello
-
-
   nginx:
     image: nginx
     ports:

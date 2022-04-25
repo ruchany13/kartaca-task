@@ -36,4 +36,5 @@ services:
       - "3000:3000"
     networks:
       - monitoring
+
     
