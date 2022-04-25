@@ -6,13 +6,16 @@ db.city_tb.drop();
 
 db.city_tb.insertMany([
     {
-        "name": "Ankara",
+        "il": "Ankara",
+        "nufüs" : "5.000.000"
     },
     {
-        "name": "İstanbul",
+        "il": "İstanbul",
+        "nüfus": "15.460.000"
     },
     {
-        "name": "Yalova",
+        "il": "Yalova",
+        "nüfus": "121.479"
     },
 ]);
 
