@@ -44,10 +44,29 @@ services:
 
   app:
     build: ./app
+    expose:
+      - 5000
     ports:
-      - "80:5000"
+      - "5100:5000"
     networks:
       - replica-set
+    labels:
+      - traefik.http.routers.flask.rule=Host(`flask.localhost`) 
+      
+  
+  reverse-proxy:
+    image: traefik:v2.4
+    command: --api.insecure=true --providers.docker
+    ports:
+      - "80:80"
+      - "8080:8080"
+    labels:
+      - traefik.enable=false
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    networks:
+      - replica-set
+
     
 networks:
  replica-set:
