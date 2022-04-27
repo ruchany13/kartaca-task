@@ -64,14 +64,10 @@ services:
     networks:
       - replica-set
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.kartaca.rule=Host(kartaca.localhost)"
-      - "traefik.http.routers.kartaca.rule=PathPrefix(/)"
-      - "traefik.http.routers.kartaca.entrypoints=web"
-      - "traefik.http.routers.kartaca.middlewares=custom_repath"
-      - "traefik.http.middlewares.custom_repath.replacepathregex.regex=/python-app/"
-      - "traefik.http.middlewares.custom_repath.replacepathregex.replacement=/staj"
-  
+      - traefik.http.routers.flask.rule=Host(`kartaca.localhost`) 
+      - traefik.http.routers.flask.middlewares=custom_repath
+      - traefik.http.middlewares.custom_repath.replacepathregex.regex=/python-app
+      - traefik.http.middlewares.custom_repath.replacepathregex.replacement=/staj
 
 
     
