@@ -64,7 +64,7 @@ services:
     networks:
       - replica-set
     labels:
-     - "traefik.enable=true"
+      - "traefik.enable=true"
       - "traefik.http.routers.kartaca.rule=Host(kartaca.localhost)"
       - "traefik.http.routers.kartaca.rule=PathPrefix(/)"
       - "traefik.http.routers.kartaca.entrypoints=web"
