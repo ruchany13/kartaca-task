@@ -64,13 +64,13 @@ services:
     networks:
       - replica-set
     labels:
-     # Create a middleware named `foo-add-prefix`
-      - "traefik.http.middlewares.foo-add-prefix.addprefix.prefix=/staj"
-    # Apply the middleware named `foo-add-prefix` to the router named `router1`
-      - "traefik.http.routers.router1.middlewares=foo-add-prefix@docker"
-      - traefik.http.routers.flask.rule=Host(`kartaca.localhost`) 
-      - traefik.http.middlewares.test-replacepathregex.replacepathregex.regex=^/staj/(.*)
-      - traefik.http.middlewares.test-replacepathregex.replacepathregex.replacement=/pythonapp/$$1
+     - "traefik.enable=true"
+      - "traefik.http.routers.kartaca.rule=Host(kartaca.localhost)"
+      - "traefik.http.routers.kartaca.rule=PathPrefix(/)"
+      - "traefik.http.routers.kartaca.entrypoints=web"
+      - "traefik.http.routers.kartaca.middlewares=custom_repath"
+      - "traefik.http.middlewares.custom_repath.replacepathregex.regex=/python-app/"
+      - "traefik.http.middlewares.custom_repath.replacepathregex.replacement=/staj"
   
 
 
