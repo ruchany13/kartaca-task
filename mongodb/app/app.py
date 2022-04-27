@@ -24,7 +24,6 @@ def getdata():
     _nufus = db.city_tb.find({"il":choosen})
     nufus = ({"nufüs": _nufus["nufus"]}) 
     #return jsonify({"nufüs":nufus})
-    
     #"choosen":choosen,
 
 

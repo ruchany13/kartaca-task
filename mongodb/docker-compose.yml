@@ -42,18 +42,6 @@ services:
     restart: always
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "dbrs" ]
 
-  app:
-    build: ./app
-    expose:
-      - 5000
-    ports:
-      - "5100:5000"
-    networks:
-      - replica-set
-    labels:
-      - traefik.http.routers.flask.rule=Host(`flask.localhost`) 
-      
-  
   reverse-proxy:
     image: traefik:v2.4
     command: --api.insecure=true --providers.docker
@@ -66,6 +54,25 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - replica-set
+
+  app:
+    build: ./app
+    expose:
+      - 5000
+    ports:
+      - "5100:5000"
+    networks:
+      - replica-set
+    labels:
+     # Create a middleware named `foo-add-prefix`
+      - "traefik.http.middlewares.foo-add-prefix.addprefix.prefix=/staj"
+    # Apply the middleware named `foo-add-prefix` to the router named `router1`
+      - "traefik.http.routers.router1.middlewares=foo-add-prefix@docker"
+      - traefik.http.routers.flask.rule=Host(`kartaca.localhost`) 
+      - traefik.http.middlewares.test-replacepathregex.replacepathregex.regex=^/staj/(.*)
+      - traefik.http.middlewares.test-replacepathregex.replacepathregex.replacement=/pythonapp/$$1
+  
+
 
     
 networks:
