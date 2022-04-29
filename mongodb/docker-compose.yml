@@ -42,12 +42,34 @@ services:
     restart: always
     entrypoint: [ "/usr/bin/mongod", "--bind_ip_all", "--replSet", "dbrs" ]
 
-  app:
-    build: ./app
+  reverse-proxy:
+    image: traefik:v2.4
+    command: --api.insecure=true --providers.docker
     ports:
-      - "80:5000"
+      - "80:80"
+      - "8080:8080"
+    labels:
+      - traefik.enable=false
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - replica-set
+
+  app:
+    build: ./app
+    expose:
+      - 5000
+    ports:
+      - "5100:5000"
+    networks:
+      - replica-set
+    labels:
+      - traefik.http.routers.flask.rule=Host(`kartaca.localhost`) 
+      - traefik.http.routers.flask.middlewares=custom_repath
+      - traefik.http.middlewares.custom_repath.replacepathregex.regex=/python-app
+      - traefik.http.middlewares.custom_repath.replacepathregex.replacement=/staj
+
+
     
 networks:
  replica-set:

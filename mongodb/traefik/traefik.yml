@@ -1,0 +1,6 @@
+http:
+  services:
+    my-service:
+      loadBalancer:
+        servers:
+          - url: "http://127.0.0.1:5100/staj"

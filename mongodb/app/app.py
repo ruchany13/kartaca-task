@@ -15,13 +15,15 @@ def index():
 @app.route('/staj')
 def getdata():
 
+    #for test trafeik
+    return "staj Path çalıştı"
     _city = db.city_tb.find()
     city = [{"il": animal["il"]} for animal in _city]
     nufus = [{"nufüs": animal["nufüs"]} for animal in _city]
     choosen = random.choices(city)
     _nufus = db.city_tb.find({"il":choosen})
     nufus = ({"nufüs": _nufus["nufus"]}) 
-    return jsonify({"nufüs":nufus})
+    #return jsonify({"nufüs":nufus})
     #"choosen":choosen,
 
 
