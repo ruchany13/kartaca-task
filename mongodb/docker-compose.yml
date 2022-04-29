@@ -66,7 +66,7 @@ services:
     labels:
       - traefik.http.routers.flask.rule=Host(`kartaca.localhost`) 
       - traefik.http.routers.flask.middlewares=custom_repath
-      - traefik.http.middlewares.custom_repath.replacepathregex.regex=/python-app
+      - traefik.http.middlewares.custom_repath.replacepathregex.regex=/pythonapp
       - traefik.http.middlewares.custom_repath.replacepathregex.replacement=/staj
 
 
